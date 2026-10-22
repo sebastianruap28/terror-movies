@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slasher Movies 🔪 - TERROR MOVIES</title>
+    
+    <!-- SECCIÓN DE ESTILOS CSS -->
+    <style>
+        /* Título principal con degradado gótico */
+        .table-title {
+            background: linear-gradient(135deg, #4a0e17, #8b0000, #ff0000, #3a0007, #000000);
+            color: #ffffff;
+            text-align: center;
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+            border: 1px solid #8b0000;
+        }
+
+        /* Estilos generales del cuerpo */
+        body {
+            margin: 0;
+            background-color: #0a0a0a;
+            color: #eeeeee;
+            display: flex;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        /* Menú de categorías */
+        .categorias-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .btn-categoria {
+            background-color: #141414;
+            color: #ff4d4d;
+            border: 1px solid #8b0000;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-categoria:hover, .btn-categoria.activo {
+            background-color: #8b0000;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+        }
+
+        /* Grilla de películas */
+        .grid-peliculas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Tarjeta principal de la película */
+        .card-pelicula {
+            background-color: #141414;
+            border: 1px solid #3a0000;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .card-info { 
+            padding: 12px; 
+        }
+
+        .tag-subgenero {
+            display: inline-block;
+            background-color: #3a0000;
+            color: #ff4d4d;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        /* =========================================
+           NUEVO EFECTO DE TRÁILER EN LA IMAGEN (HOVER)
+           ========================================= */
+        .contenedor-imagen {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            display: block; 
+        }
+
+        .contenedor-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease; 
+        }
+
+        .capa-trailer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(139, 0, 0, 0.85); /* Rojo oscuro sangre transparente */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            opacity: 0; 
+            transition: opacity 0.3s ease; 
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+        }
+
+        .contenedor-imagen:hover .capa-trailer {
+            opacity: 1; /* Hace visible el texto y el fondo rojo */
+        }
+
+        .contenedor-imagen:hover img {
+            transform: scale(1.1); /* Zoom a la imagen del póster */
+        }
+
+        /* Aro del avatar */
+        .aro-historia {
+            padding: 3px;
+            background: linear-gradient(45deg, #ff0000, #8b0000, #300000, #ff4d4d);
+            border-radius: 50%;
+            margin-bottom: 8px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        
+        .btn-flecha {
+            color: #ffffff;
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            font-size: 14px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            border: 1px solid #ff4d4d;
+            transition: transform 0.2s;
+        }
+
+        .btn-flecha:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================
+         1. BARRA LATERAL IZQUIERDA (Perfil)
+         ======================================================== -->
+    <div style="width: 120px; background-color: #050505; border-right: 1px solid #2a0000; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="aro-historia">
+                <img id="foto-perfil" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200&h=200" style="width: 52px; height: 52px; border-radius: 50%; border: 2px solid #050505; object-fit: cover;">
+            </div>
+            <span style="color: #888888; font-size: 12px; font-weight: 500; margin-bottom: 12px;">Cuenta</span>
+            
+            <label for="subir-foto" class="btn-flecha" title="Subir foto">
+                ⬆
+            </label>
+            <input type="file" id="subir-foto" accept="image/*" style="display: none;" onchange="cambiarFoto(event)">
+        </div>
+    </div>
+
+    <!-- ========================================================
+         2. CONTENEDOR PRINCIPAL DERECHO
+         ======================================================== -->
+    <div style="flex: 1; padding: 30px;">
+        <header>
+            <div class="table-title">
+                <h1 style="margin: 0; font-size: 28px; letter-spacing: 3px; text-transform: uppercase;">SECCIÓN SLASHER 🔪</h1>
+            </div>
+
+            <!-- NAVEGACIÓN ENTRE PÁGINAS -->
+            <nav class="categorias-bar">
+                <!-- Asegúrate de que tu archivo principal se llame index.html -->
+                <a href="index.html" class="btn-categoria">🔥 Inicio</a>
+                <a href="slasher.html" class="btn-categoria activo">🔪 Slasher</a>
+            </nav>
+        </header>
+
+        <main>
+            <section>
+                <h2 style="font-size: 18px; color: #ff4d4d; border-bottom: 1px solid #3a0000; padding-bottom: 8px;">🔪 Los Clásicos Slasher</h2>
+                
+                <div class="grid-peliculas">
+                    
+                    <!-- Película 1: Scream -->
+                    <div class="card-pelicula">
+                        <a href="https://www.youtube.com/watch?v=i3J6ACKQ7K0" target="_blank" class="contenedor-imagen">
+                            <!-- NOTA: Cambia este enlace por "img/scream.jpg" cuando descargues el póster real -->
+                            <img src="img/scream.webp" alt="Scream">
+                            <div class="capa-trailer">📼 VER TRÁILER</div>
+                        </a>
+                        <div class="card-info">
+                            <span class="tag-subgenero">🔪 SLASHER · 1996</span>
+                            <h3 style="margin: 5px 0; font-size: 16px; color: #fff;">Scream (Gritar)</h3>
+                            <p style="font-size: 12px; color: #888; margin: 0;">Un misterioso asesino enmascarado conocido como Ghostface aterroriza a un grupo de adolescentes.</p>
+                        </div>
+                    </div>
+
+                    <!-- Película 2: Halloween -->
+                    <div class="card-pelicula">
+                        <a href="https://www.youtube.com/watch?v=T5ke9IPTIJQ" target="_blank" class="contenedor-imagen">
+                            <img src="https://images.unsplash.com/photo-1572537165377-627a37043464?auto=format&fit=crop&q=80&w=400" alt="Halloween">
+                            <div class="capa-trailer">📼 VER TRÁILER</div>
+                        </a>
+                        <div class="card-info">
+                            <span class="tag-subgenero">🔪 SLASHER · 1978</span>
+                            <h3 style="margin: 5px 0; font-size: 16px; color: #fff;">Halloween</h3>
+                            <p style="font-size: 12px; color: #888; margin: 0;">Michael Myers escapa de un sanatorio para regresar a su pueblo natal y acechar a la joven Laurie Strode.</p>
+                        </div>
+                    </div>
+
+                    <!-- Película 3: Viernes 13 -->
+                    <div class="card-pelicula">
+                        <a href="https://www.youtube.com/watch?v=gjiqwTv9yeI" target="_blank" class="contenedor-imagen">
+                            <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=400" alt="Viernes 13">
+                            <div class="capa-trailer">📼 VER TRÁILER</div>
+                        </a>
+                        <div class="card-info">
+                            <span class="tag-subgenero">🔪 SLASHER · 1980</span>
+                            <h3 style="margin: 5px 0; font-size: 16px; color: #fff;">Viernes 13</h3>
+                            <p style="font-size: 12px; color: #888; margin: 0;">Un grupo de consejeros de campamento intenta reabrir Crystal Lake, sin saber que un asesino los vigila.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <!-- PIE DE PÁGINA -->
+        <footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #2a0000; text-align: center; color: #888888; font-size: 13px;">
+            <p>© 2026 S E B A S ° R U A — Proyecto de Ingeniería Web I</p>
+        </footer>
+    </div>
+
+    <!-- SCRIPT PARA CAMBIAR FOTO DE PERFIL -->
+    <script>
+        function cambiarFoto(event) {
+            const archivo = event.target.files[0];
+            if (archivo) {
+                const lector = new FileReader();
+                lector.onload = function(e) {
+                    document.getElementById('foto-perfil').src = e.target.result;
+                }
+                lector.readAsDataURL(archivo);
+            }
+        }
+    </script>
+</body>
+</html>

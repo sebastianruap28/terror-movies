@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERROR MOVIES 💀 - S E B A S ° R U A</title>
+
+    <!-- SECCIÓN DE ESTILOS CSS - DISEÑO GÓTICO / TERROR -->
+    <style>
+        /* Título superior */
+        .table-title {
+            background: linear-gradient(135deg, #4a0e17, #8b0000, #ff0000, #3a0007, #000000);
+            color: #ffffff;
+            text-align: center;
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+            border: 1px solid #8b0000;
+        }
+
+        /* Cuerpo principal */
+        body {
+            margin: 0;
+            background-color: #0a0a0a;
+            color: #eeeeee;
+            display: flex;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        /* Menú de navegación */
+        .categorias-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .btn-categoria {
+            background-color: #141414;
+            color: #ff4d4d;
+            border: 1px solid #8b0000;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-categoria:hover, .btn-categoria.activo {
+            background-color: #8b0000;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+        }
+
+        /* Grilla de películas */
+        .grid-peliculas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 35px;
+        }
+
+        .card-pelicula {
+            background-color: #141414;
+            border: 1px solid #3a0000;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        /* Efecto Hover para ver tráiler en la imagen */
+        .contenedor-imagen {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            display: block; 
+        }
+
+        .contenedor-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease; 
+        }
+
+        .capa-trailer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(139, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            opacity: 0; 
+            transition: opacity 0.3s ease; 
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+        }
+
+        .contenedor-imagen:hover .capa-trailer {
+            opacity: 1; 
+        }
+
+        .contenedor-imagen:hover img {
+            transform: scale(1.1); 
+        }
+
+        .card-info { padding: 12px; }
+
+        .tag-subgenero {
+            display: inline-block;
+            background-color: #3a0000;
+            color: #ff4d4d;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        /* Contenedor del video local */
+        .contenedor-video {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            background-color: #141414;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #2a0000;
+        }
+
+        video {
+            width: 100%;
+            max-width: 640px;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(255, 0, 0, 0.25);
+            background-color: #000000;
+            margin-top: 18px;
+            border: 1px solid #4a0000;
+        }
+
+        .btn-subir-video {
+            color: #ffffff;
+            background-color: #8b0000;
+            font-size: 14px;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
+            border: 1px solid #ff0000;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn-subir-video:hover {
+            background-color: #b30000;
+            transform: scale(1.02);
+        }
+
+        /* Avatar y botones laterales */
+        .aro-historia {
+            padding: 3px;
+            background: linear-gradient(45deg, #ff0000, #8b0000, #300000, #ff4d4d);
+            border-radius: 50%;
+            margin-bottom: 8px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .btn-flecha {
+            color: #ffffff;
+            background: linear-gradient(45deg, #8b0000, #ff0000);
+            font-size: 14px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            border: 1px solid #ff4d4d;
+            transition: transform 0.2s;
+        }
+
+        .btn-flecha:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================
+         AUDIO OCULTO DE FONDO (Autoplay silenciado)
+         ======================================================== -->
+    <audio id="audio-fondo" autoplay loop muted>
+        <source src="sound/hallowen.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- BOTÓN FLOTANTE PARA ACTIVAR EL AUDIO -->
+    <button id="btn-audio" onclick="controlarAudio()" style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #8b0000;
+        color: white;
+        border: 1px solid #ff0000;
+        border-radius: 50px;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+        z-index: 1000;
+    ">
+        🔇 Activar Sonido
+    </button>
+
+
+    <!-- ========================================================
+         BARRA LATERAL IZQUIERDA
+         ======================================================== -->
+    <div style="width: 120px; background-color: #050505; border-right: 1px solid #2a0000; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="aro-historia">
+                <img id="foto-perfil" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200&h=200" style="width: 52px; height: 52px; border-radius: 50%; border: 2px solid #050505; object-fit: cover;">
+            </div>
+            <span style="color: #888888; font-size: 12px; font-weight: 500; margin-bottom: 12px;">Cuenta</span>
+            
+            <label for="subir-foto" class="btn-flecha" title="Subir foto">⬆</label>
+            <input type="file" id="subir-foto" accept="image/*" style="display: none;" onchange="cambiarFoto(event)">
+        </div>
+    </div>
+
+
+    <!-- ========================================================
+         CONTENEDOR PRINCIPAL DERECHO
+         ======================================================== -->
+    <div style="flex: 1; padding: 30px;">
+        
+        <header>
+            <div class="table-title">
+                <h1 style="margin: 0; font-size: 28px; letter-spacing: 3px; font-weight: 700; text-transform: uppercase;">
+                    TERROR MOVIES 💀
+                </h1>
+            </div>
+
+            <!-- NAVEGACIÓN ENTRE PÁGINAS -->
+            <nav class="categorias-bar">
+                <a href="index.html" class="btn-categoria activo">🔥 Inicio</a>
+                <a href="slasher.html" class="btn-categoria">🔪 Slasher</a>
+            </nav>
+        </header>
+
+        <main>
+            
+            <section style="margin-bottom: 40px;">
+                <h2 style="font-size: 18px; color: #ff4d4d; border-bottom: 1px solid #3a0000; padding-bottom: 8px;">
+                    🎬 Catálogo General
+                </h2>
+
+                <div class="grid-peliculas">
+                    <!-- Película de ejemplo con el nuevo enlace flotante -->
+                    <div class="card-pelicula">
+                        <a href="https://www.youtube.com/watch?v=hJ2j4oWdQtU" target="_blank" class="contenedor-imagen">
+                            <img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&q=80&w=400" alt="Scream">
+                            <div class="capa-trailer">📼 VER TRÁILER</div>
+                        </a>
+                        <div class="card-info">
+                            <span class="tag-subgenero">🔪 SLASHER</span>
+                            <h3 style="margin: 5px 0; font-size: 15px; color: #fff;">Scream / Masacre</h3>
+                            <p style="font-size: 12px; color: #888; margin: 0;">Un asesino enmascarado acecha a jóvenes en el pueblo.</p>
+                        </div>
+                    </div>
+
+                    <div class="card-pelicula">
+                        <a href="https://www.youtube.com/watch?v=k10ETZ41q5o" target="_blank" class="contenedor-imagen">
+                            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=400" alt="El Conjuro">
+                            <div class="capa-trailer">📼 VER TRÁILER</div>
+                        </a>
+                        <div class="card-info">
+                            <span class="tag-subgenero">👻 PARANORMAL</span>
+                            <h3 style="margin: 5px 0; font-size: 15px; color: #fff;">El Conjuro</h3>
+                            <p style="font-size: 12px; color: #888; margin: 0;">Paranormalistas investigan una casa infestada de entidades.</p>
+                        </div>
+                    </div>
+
+                    <div class="card-pelicula">
+                        <a href="https://www.youtube.com/watch?v=S014oGZiSdI" target="_blank" class="contenedor-imagen">
+                            <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=400" alt="El Resplandor">
+                            <div class="capa-trailer">📼 VER TRÁILER</div>
+                        </a>
+                        <div class="card-info">
+                            <span class="tag-subgenero">🧠 PSICOLÓGICO</span>
+                            <h3 style="margin: 5px 0; font-size: 15px; color: #fff;">El Resplandor</h3>
+                            <p style="font-size: 12px; color: #888; margin: 0;">Un hotel aislado lleva a la locura a un escritor.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: REPRODUCTOR DE VIDEO LOCAL -->
+            <section>
+                <h2 style="font-size: 18px; color: #ff4d4d; border-bottom: 1px solid #3a0000; padding-bottom: 8px;">
+                    📼 Reproductor de Tráiler Local
+                </h2>
+
+                <div class="contenedor-video">
+                    <label for="subir-video-input" class="btn-subir-video">
+                        📁 Cargar Tráiler o Video
+                    </label>
+                    <input type="file" id="subir-video-input" accept="video/*" style="display: none;" onchange="cargarVideoLocal(event)">
+
+                    <video id="reproductor-video" controls style="display: none;">
+                        Tu navegador no soporta la reproducción de videos en HTML5.
+                    </video>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- PIE DE PÁGINA (FOOTER) -->
+        <footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #2a0000; text-align: center; color: #888888; font-size: 13px;">
+            <p>© 2026 S E B A S ° R U A — Proyecto de Ingeniería Web I</p>
+        </footer>
+
+    </div> 
+    <!-- AQUI TERMINA EL CONTENEDOR DERECHO -->
+
+
+    <!-- ========================================================
+         CÓDIGO JAVASCRIPT
+         ======================================================== -->
+    <script>
+        // Función 1: Cambiar la foto
+        function cambiarFoto(event) {
+            const archivo = event.target.files[0];
+            if (archivo) {
+                const lector = new FileReader();
+                lector.onload = function(e) {
+                    document.getElementById('foto-perfil').src = e.target.result;
+                }
+                lector.readAsDataURL(archivo);
+            }
+        }
+
+        // Función 2: Cargar el video local
+        function cargarVideoLocal(event) {
+            const archivo = event.target.files[0];
+            if (archivo) {
+                const reproductor = document.getElementById('reproductor-video');
+                const urlVideo = URL.createObjectURL(archivo);
+                
+                reproductor.src = urlVideo;
+                reproductor.style.display = 'block';
+                reproductor.play();
+            }
+        }
+
+        // Función 3: Controlar el audio de fondo
+        // Función 3: Controlar el audio de fondo
+        function controlarAudio() {
+            const reproductor = document.getElementById('audio-fondo');
+            const boton = document.getElementById('btn-audio');
+
+            // Si está silenciado O está pausado por el navegador
+            if (reproductor.muted || reproductor.paused) {
+                reproductor.muted = false;               // Quita el silencio
+                reproductor.play();                      // 💥 OBLIGA AL AUDIO A REPRODUCIRSE
+                boton.innerHTML = '🔊 Silenciar';
+                boton.style.backgroundColor = '#141414';
+            } else {
+                reproductor.muted = true;
+                boton.innerHTML = '🔇 Activar Sonido';
+                boton.style.backgroundColor = '#8b0000';
+            }
+        }
+    </script>
+
+</body>
+</html>
